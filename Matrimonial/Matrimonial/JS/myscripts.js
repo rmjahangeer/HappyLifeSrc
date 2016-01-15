@@ -185,7 +185,7 @@ $(function () {
 				dateFormat: "dd-mm-yy",
 				yearRange: "1980:2050"
 			});
-    $(".customCalender").attr('readonly', 'readonly');
+    //$(".customCalender").attr('readonly', 'readonly');
     $(".customCalender").attr('style', 'cursor:pointer');
 });
 

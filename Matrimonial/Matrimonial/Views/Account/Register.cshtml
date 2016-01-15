@@ -85,15 +85,14 @@
                         @autocomplete = "on",
                         @placeholder = "Date of Birth",
                         @style = "cursor: pointer",
-                        @readonly = "readonly"
                     })
                     
                     <br/>
 
                     <span>@Html.LabelFor(x => x.Gender) <span class="text-danger">*</span></span>
                     <br/>
-                    <input type="radio" class="radio-inline" name="Gender" id="Gender" value="male" required="required"/> &nbsp; <label class="control-label">Male</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" class="radio-inline" name="Gender" id="Gender" value="female" required="required" /> &nbsp; <label class="control-label">Female</label>
+                    <label class="control-label"><input type="radio" class="radio-inline" name="Gender" id="male" value="male" required="required" /> &nbsp; Male</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="control-label"><input type="radio" class="radio-inline" name="Gender" id="female" value="female" required="required" /> &nbsp; Female</label>
 
                 </fieldset>
             </div>
