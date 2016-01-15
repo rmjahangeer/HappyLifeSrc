@@ -1,0 +1,189 @@
+﻿@using Matrimonial.ClientModels
+@model List<Matrimonial.ClientModels.UserProfileModel>
+
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+<link href="~/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/css/dataTables.bootstrap.css" rel="stylesheet" />
+
+@if (ViewBag.err == false)
+{
+    <div class='col-md-6 col-md-offset-3'><div class='alert alert-dismissible alert-danger'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Ooops!</strong> Something went wrong</div></div>
+}
+else if (ViewBag.err == true)
+{
+    <div class='col-md-6 col-md-offset-3'><div class='alert alert-dismissible alert-success'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Congratulations!</strong>User Deleted</div></div>
+}
+
+@if (ViewBag.verify == false)
+{
+    <div class='col-md-6 col-md-offset-3'><div class='alert alert-dismissible alert-danger'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Ooops!</strong> Something went wrong</div></div>
+}
+else if (ViewBag.verify == true)
+{
+    <div class='col-md-6 col-md-offset-3'><div class='alert alert-dismissible alert-success'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Congratulations!</strong>User Verified</div></div>
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Users
+            <small>New Users</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-dashboard"></i>  <a href="@Url.Action("Index","Admin")">Dashboard</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index","Admin")">Users</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index","Admin")">New Users</a>
+            </li>
+
+        </ol>
+    </div>
+</div>
+
+
+
+<table id="myTable" class="table table-responsive table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>City</th>
+            <th>Verified</th>
+            <th>Detail</th>
+            <th>Delete</th>
+            <th>Verify</th>
+        </tr>
+    </thead>
+
+    <tfoot>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>City</th>
+            <th>Verified</th>
+            <th>Detail</th>
+            <th>Delete</th>
+            <th>Verify</th>
+
+        </tr>
+    </tfoot>
+
+    <tbody>
+        @foreach (UserProfileModel p in Model)
+        {
+            <tr>
+                <td>@p.UserId</td>
+                <td>@p.FirstName&nbsp;@p.LastName</td>
+                <td>@p.Email</td>
+                <td>@p.Password</td>
+                <td>@p.City</td>
+                <td>@p.IsVerified</td>
+
+                <td>
+                    <div class="text-center"><a data-toggle="modal" data-target="#myModal-@p.UserId" class="btn btn-info" role="button"><i class="fa fa-fw fa-info"></i></a></div>
+
+                    <div id="myModal-@p.UserId" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="text-center">
+                                                @if (string.IsNullOrEmpty(p.ProfileImage))
+                                                {
+                                                    <img class="img-thumbnail img-responsive" src="~/Images/img/nophoto.jpeg" />
+                                                }
+                                                else
+                                                {
+                                                    <img class="img-thumbnail img-responsive" src="~/UserUploads/@p.Email/@p.ProfileImage" />
+                                                }
+
+                                            </div>
+                                            <br />
+                                            <br />
+
+                                            <div class="text-center">
+                                                <a href="/Admin/DeleteUser?id=@p.UserId" class="btn btn-danger"><i class="fa fa-fw fa-trash-o"> </i>Remove</a>
+                                                @*@Html.ActionLink("Edit Profile", "EditProfile", null, htmlAttributes: new { @class = "btn btn-success" })*@
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="control-label">Name: </label><span>@p.FirstName @p.LastName</span>
+                                            <br><label class="control-label">Age: </label><span>@{ TimeSpan x = (DateTime.Now - p.DateOfBirth); }@(x.Days / 365) yrs</span>
+                                            <br><label class="control-label">Gender: </label><span>@p.Gender</span>
+                                            <br><label class="control-label">Date of Dirth: </label><span>@p.DateOfBirth.ToLongDateString()</span>
+                                            <br><label class="control-label">Religion: </label><span>@p.Religion</span>
+                                            <br><label class="control-label">Occupation: </label>@{if (ViewBag.occupation != null)
+                                            {<span>@ViewBag.occupation.Occupation1</span>}}
+                                            <br><label class="control-label">Employee: </label><span>@p.Employed</span>
+                                            <br><label class="control-label">Country: </label><span>@p.Country</span>
+                                            <br><label class="control-label">City: </label><span>@p.City</span>
+                                            <br><label class="control-label">Address: </label><span>@p.Address</span>
+                                            <br><label class="control-label">Height: </label>@{
+            if (ViewBag.height != null)
+            {
+                <span>@ViewBag.height.Height1</span>}}
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <br><label class="control-label">Marital Status: </label><span>@p.MaritalStatus</span>
+                                            <br><label class="control-label">Marital Status: </label><span>@p.AnualIncome</span>
+                                            <br><label class="control-label">Complexity: </label><span>@p.Complexion</span>
+                                            <br><label class="control-label">Body Type: </label><span>@p.BodyType</span>
+                                            <br><label class="control-label">Personal values: </label><span>@p.PersonalValues</span>
+                                            <br><label class="control-label">Residency Status: </label><span>@p.ResidencyStatus</span>
+                                        </div>
+
+                                        @*<div class="col-md-4"></div>*@
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                </td>
+                <td class="text-center"><a href="/Admin/DeleteUser?id=@p.UserId" class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></a></td>
+                @if (!bool.Parse(p.IsVerified))
+                {
+                    <td class="text-center"><a href="/Admin/Disapprove?id=@p.UserId" class="btn btn-warning"><i class="fa fa-fw fa-warning"></i></a></td>
+                }
+                else
+                {
+                    <td class="text-center"><a href="/Admin/VerifyUser?id=@p.UserId" class="btn btn-success"><i class="fa fa-fw fa-check"></i></a></td>
+                }
+
+            </tr>
+        }
+
+
+
+    </tbody>
+</table>
+
+
+<script src="~/JS/jquery-2.1.4.js"></script>
+<script src="~/JS/jquery.dataTables.min.js"></script>
+<script src="~/JS/dataTables.bootstrap.js"></script>
+<script>
+    $(document).ready(function () {
+        debugger;
+        $('#myTable').dataTable();
+    })
+</script>

@@ -1,0 +1,74 @@
+﻿@using Matrimonial.ClientModels;
+<style>
+    .form-group.input-group {
+        width: 300px;
+        margin-top: 5px;
+  }
+
+</style>
+
+@if (Session["user"] != null) {
+    @*<li>
+        <div class="input-group form-group"><input type="text" class="form-control" placeholder="Search...">
+            <span class="input-group-btn"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></span></div>
+    </li>*@
+    <li class="dropdown">
+        <a href="@Url.Action("Search","User")"  role='button'><i class="fa fa-fw fa-search"></i>&nbsp;Search</a>
+    </li>
+    <li><a href="@Url.Action("ShortLists","User")"><i class="fa fa-fw fa-list-ul"></i>&nbsp;My ShortList</a></li>
+    <li><a href="@Url.Action("Proposals","User")"><i class="fa fa-fw fa-heart"></i>&nbsp;Proposals</a></li>
+    <li class='dropdown user user-menu'>
+        <a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='true'><i class="fa fa-fw fa-user"></i>@{ var u = (UserProfileModel) Session["user"]; }@u.FirstName &nbsp;&nbsp;<span class='fa fa-angle-down'></span></a>
+        <ul class='dropdown-menu' role='menu' style="padding-top: 0">
+            @*<li><a href=@Url.Action("ViewProfile","User")><i class="fa fa-fw fa-user"></i>View Profile</a></li>
+            <li><a href=@Url.Action("EditProfile","User")><i class="fa fa-fw fa-gear"></i>Edit Profile</a></li>
+            <li class='divider'></li>
+            <li><a href="@Url.Action("LogOut","Account")"><i class="fa fa-fw fa-power-off"></i>Logout</a></li>*@
+            <li class="user-header">
+                @if (string.IsNullOrEmpty(u.ProfileImage))
+                {
+                    <img src="~/Images/img/nophoto.jpeg" class="img-circle" alt="User Image">
+                }
+                else
+                {
+                    <img src="~/UserUploads/@u.Email/@u.ProfileImage" class="img-circle" alt="User Image">    
+                }
+                
+                <p>
+                    @u.FirstName&nbsp;&nbsp;@u.LastName<br/>
+                    <small class="text-lowercase">@u.Email</small>
+                </p>
+            </li>
+            <!-- Menu Body -->
+            @*<li class="user-body" style="font-size: x-small">
+                <div class="col-xs-4 text-center">
+                    <a href="#">Followers</a>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <a href="#">Sales</a>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <a href="#">Friends</a>
+                </div>
+            </li>*@
+            <!-- Menu Footer-->
+            <li style="padding: 10px" >
+                <div class="pull-left" style="font-size: x-small">
+                    <a href="@Url.Action("ViewProfile","User")" class="btn btn-info btn-sm"><i class="fa fa-fw fa-list-alt"></i>Profile</a>
+                </div>
+                <div class="pull-right" >
+                    <a href="@Url.Action("LogOut","Account")" class="btn btn-warning btn-sm"><i class="fa fa-fw fa-sign-out"></i>Sign out</a>
+                </div>
+            </li>
+        </ul>
+    </li>
+}
+else
+{
+    <li><a href="@Url.Action("Index", "Home")"><i class='fa  fa-home'></i> Home</a></li>
+    <li><a href="@Url.Action("About","Home")"><i class="fa  fa-info"></i> About</a></li>
+    <li><a href="@Url.Action("Contact","Home")"><i class="fa  fa-phone"></i> Contact</a></li>
+    <li><a href="@Url.Action("FAQs","Home")"><i class="fa  fa-question"></i> Faq's</a></li>
+    <li><a href="@Url.Action("Login", "Account")"><i class="fa  fa-sign-in"></i> Sign in</a></li>
+    <li><a href="@Url.Action("Register","Account")"><i class="fa  fa-unlock-alt"></i> Create Free Account</a></li>
+}

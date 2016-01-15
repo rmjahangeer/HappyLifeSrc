@@ -1,0 +1,75 @@
+﻿@using Matrimonial.ClientModels
+@using Matrimonial.Models
+@model List<Matrimonial.ClientModels.UserProfileModel>
+
+@{
+    ViewBag.Title = "Proposals";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1><span><i class="fa fa-heart-o"></i></span>&nbsp;Proposals</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    @if (ViewBag.results == false)
+    {
+        <h2><i class="fa fa-3x fa-frown-o"></i> No Proposals yet. </h2>
+        <br/><br/><br/><br/><br/>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (UserProfileModel u in Model)
+            {
+                <div class="col-md-4">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            @u.FirstName&nbsp;@u.LastName
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-lg-12">
+                                <div class="col-md-5">
+                                    @if (!string.IsNullOrEmpty(u.ProfileImage))
+                                    {
+                                        <img src="/UserUploads/@u.Email/@u.ProfileImage" height="100" width="100" />
+                                    }
+                                    else
+                                    {
+                                        <img src="/Images/img/nophoto.jpeg" height="100" width="100" />   
+                                    }
+                                    
+                                </div>
+                                <div class="col-md-7" style="padding-right: 5px">
+                                    <label class="control-label">Birth date: </label><span>@u.DateOfBirth.ToShortDateString()</span><br />
+                                    <label class="control-label">Country: </label><span>@u.Country</span><br />
+                                    <label class="control-label">City: </label><span>@u.City</span><br />
+                                    <label class="control-label">Gender: </label><span>@u.Gender</span><br />
+                                    <label class="control-label">Marital Status: </label><span>@u.MaritalStatus</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <a class="btn btn-success" href="/User/AcceptRequest?id=@u.UserId" id="@u.UserId" role="button"><i class="fa fa-fw fa-heart"></i>Accept</a>
+                            <a class="btn btn-warning" href="/User/DeleteRequest?id=@u.UserId" id=" reject" role="button"><i class="fa fa-fw fa-chain-broken"></i>Decline</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@*<script>
+    function SendProposal(control) {
+        debugger
+        var id = control.id;
+        var sda = "sds";
+        return false;
+    }
+</script>*@

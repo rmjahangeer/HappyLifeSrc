@@ -1,0 +1,130 @@
+﻿@using Matrimonial.Models
+@model Matrimonial.Models.UserProfile
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="container">
+    @if (ViewBag.UserExists == true)
+    {
+        <div class='container'><div class='alert alert-dismissible alert-danger'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Ooops!</strong> User already exists.</div></div>
+    }
+    else if (ViewBag.UserExists == false)
+    {
+        <div class='container'><div class='alert alert-dismissible alert-success'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Congratulations!</strong> You successfully created account. <a href='@Url.Action("Login","Account")' class='alert-link'>Signin</a> to continue.</div></div>
+    }
+    <div class="row well">
+        @using (@Html.BeginForm("RegisterIn", "Account", FormMethod.Post, htmlAttributes: new { @class = "col-md-5", @onsubmit = "return validateForm(this);" }))
+        {
+            @*<form class="col-md-5" method="post" onsubmit=" return validateForm(this); ">*@
+            <div id="Register">
+                <fieldset>
+                    <legend class="label label-info">Create Account</legend>
+                    <span>@Html.LabelFor(x => x.FirstName) <span class="text-danger">*</span></span>
+                    @Html.TextBoxFor(x => x.FirstName, htmlAttributes: new
+                    {
+                        @class = "form-control",
+                        @maxlength = "20",
+                        @autocomplete = "on",
+                        @placeholder = "First Name"
+                    })
+                    <br />
+
+                    <span>@Html.LabelFor(x => x.LastName) <span class="text-danger">*</span></span>
+                    @Html.TextBoxFor(x => x.LastName, htmlAttributes: new
+                    {
+                        @class = "form-control",
+                        @maxlength = "20",
+                        @autocomplete = "on",
+                        @placeholder = "Last Name"
+                    })
+
+                    <br />
+
+                    <span>
+                        @Html.LabelFor(x => x.Email)<span class="text-danger"> *</span><br />
+                        <span id="emailErr"></span>
+                        <span id="emailExists" class="text-danger"></span>
+                    </span>
+                    @Html.TextBoxFor(x => x.Email, htmlAttributes: new
+                    {
+                        @autocomplete = "on",
+                        @class = "form-control",
+                        @placeholder = "someone@example.com",
+                        @onblur = " validateEmail(this) "
+                    })
+                    <br />
+
+                    <span>
+                        @Html.LabelFor(x => x.Password) <span class="text-danger"> *</span><br />
+                        <span id="pwd" class="text-danger"></span>
+                    </span>
+                    @Html.TextBoxFor(x => x.Password, htmlAttributes: new
+                    {
+                        @class = "form-control",
+                        @autocomplete = "on",
+                        @placeholder = "Password",
+                        @type="password",
+                        onblur = "validatePassword()"
+                    })
+                    <br />
+
+                    <label class="control-label">Confirm Password</label>
+                    <span class="text-danger">*</span><br />
+                    <span id="cnfrmPwd" class="text-danger"></span>
+                    <input type="password" name="confirmPassword" id="confirmPassword"
+                           autocomplete="on" class="form-control"
+                           placeholder="Confirm Password" />
+
+                    <br />
+
+                    <span>@Html.LabelFor(x => x.DateOfBirth) <span class="text-danger">*</span></span>
+                    @Html.TextBoxFor(x => x.DateOfBirth, htmlAttributes: new
+                    {
+                        @class = "form-control customCalender",
+                        @autocomplete = "on",
+                        @placeholder = "Date of Birth",
+                        @style = "cursor: pointer",
+                        @readonly = "readonly"
+                    })
+                    
+                    <br/>
+
+                    <span>@Html.LabelFor(x => x.Gender) <span class="text-danger">*</span></span>
+                    <br/>
+                    <input type="radio" class="radio-inline" name="Gender" id="Gender" value="male" required="required"/> &nbsp; <label class="control-label">Male</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" class="radio-inline" name="Gender" id="Gender" value="female" required="required" /> &nbsp; <label class="control-label">Female</label>
+
+                </fieldset>
+            </div>
+            <br/>
+            <input type="submit" class="btn btn-block btn-success" id="registerBtn" value="Create Account" role="button" />
+            <div class="pull-left"><h5 class="text-warning">Note: By clicking 'Create Account', you are agreeing to our <a href="@Url.Action("TermsAndConditions","Home")">Terms and Conditions </a></h5></div>
+            @*</form>*@
+        }
+        <div id="register-text" class="col-md-7">
+
+            <h3><i class="fa fa-check"></i><strong>Completely Free Matrimonial Site</strong></h3>
+            <p> We do not charge our users when they create their profiles or when they contact other members. All the functionality on this website is provided free of charge </p>
+
+            <h3> <i class="fa fa-users"></i><strong> Real Profiles </strong> </h3>
+            <p> We do not believe in creating fake profiles to dupe users, all profiles that you see here are real profiles created by real people </p>
+
+            <h3> <i class="fa fa-cog"></i><strong> Full Functionality </strong> </h3>
+            <p> We continuously strive to offer you the same functionality as the top paid sites through regular updates </p>
+
+            <h3> <i class="fa fa-envelope"></i><strong> Customer Service </strong> </h3>
+            <p> We aim to answer any queries or questions you may have as soon as possible (usually within 24hrs) </p>
+
+            <h3> <i class="fa fa-eye"></i><strong> Privacy </strong> </h3>
+            <p> We strongly believe in user privacy which is why we will never show your name or your contact details in search results unless you accept an interest request. We also do not believe in spamming users with emails everyday which is why you will only receive emails from us if its about something important </p>
+
+        </div>
+    </div>
+</div>
+<script src="~/JS/jquery-2.1.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".form-control")[0].focus();
+    })
+</script>

@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "SearchResults";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<UserProfile>
+@using Matrimonial.Models;
+
+<div class="container">
+    <h2>SearchResults</h2>
+    @if (ViewBag.results == false)
+    {
+        <h2>No results Found</h2>
+    }
+    else
+    {
+        foreach (UserProfile u in Model)
+         {
+             <div class="row">
+                 <div class="col-lg-4">
+                     <div class="panel panel-info">
+                         <div class="panel-heading">
+                             @u.FirstName&nbsp;@u.LastName
+                         </div>
+                         <div class="panel-body">
+                             <div class="col-md-12">
+                                 <div class="col-md-3">
+                                     <img src="~/UserUploads/@u.Email/@u.ProfileImage" height="100" width="100"/>
+                                 </div>
+                                 <div class="col-md-9">
+                                     <label class="control-label">Birth date: </label><span>@u.DateOfBirth</span>
+                                     <label class="control-label">Country: </label><span>@u.Country</span>
+                                     <label class="control-label">City: </label><span>@u.City</span>
+                                     <label class="control-label">Gender: </label><span>@u.Gender</span>
+                                     <label class="control-label">Marital Status: </label><span>@u.MaritalStatus</span>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="panel-footer">
+                             Panel Footer
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         }
+    }
+</div>

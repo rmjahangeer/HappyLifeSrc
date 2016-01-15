@@ -1,0 +1,439 @@
+﻿@model Matrimonial.ViewModels.ProfileViewModel
+@using Matrimonial.Models;
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .txtArea {
+        -moz-resize: none;
+        -ms-resize: none;
+        -o-resize: none;
+        resize: none;
+        width: 350px;
+        height: 150px;
+    }
+</style>
+<div id="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2><label><i class="fa fa-user"></i></label>&nbsp;Edit Profile</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container">
+    @if (ViewBag.changed == true)
+    {<div class='col-md-12'><div class='alert alert-dismissible alert-success'><button type='button' class='close' data-dismiss='alert'>×</button> Changes Saved.</div></div>}
+    <div class="row">
+        <div class="col-md-10">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#home-pills" data-toggle="tab">Information Required for Profile to be approved</a>
+                </li>
+                <li>
+                    <a href="#profile-pills" data-toggle="tab">Additional Information for Profile</a>
+                </li>
+                <li>
+                    <a href="#profile-pic-pills" data-toggle="tab">Photos for Profile</a>
+                </li>
+
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane fade in active" id="home-pills">
+                    @using (Html.BeginForm("EditProfile", "User", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(x => x.UserProfile.UserId)
+                        <h3>Information reqired for approval</h3>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="col-sm-3">
+                                    @Html.LabelFor(x => x.UserProfile.FirstName, htmlAttributes: new
+                                    {
+                                        @class = "control-label",
+                                    })
+                                </div>
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(x => x.UserProfile.FirstName)
+                                </div>
+                            </div>
+                            <div class=" col-xs-12 col-sm-6">
+                                <div class="col-sm-3">
+                                    @Html.LabelFor(x => x.UserProfile.LastName, htmlAttributes: new
+                                    {
+                                        @class = "control-label"
+
+                                    })
+                                </div>
+                                <div class="col-sm-9">@Html.EditorFor(x => x.UserProfile.LastName)</div>
+                            </div>
+                        </div>
+                        <hr class="ui-menu-divider" />
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="col-sm-3">
+                                    @Html.LabelFor(x => x.UserProfile.Email, htmlAttributes: new
+                                    {
+                                        @class = "control-label"
+
+                                    })
+                                </div>
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(x => x.UserProfile.Email)
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="ui-menu-divider" />
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="col-sm-3">
+                                    @Html.LabelFor(x => x.UserProfile.DateOfBirth, htmlAttributes: new
+                                    {
+                                        @class = "control-label"
+
+                                    })
+                                </div>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(x => x.UserProfile.DateOfBirth, new { @id="UserDOB", @class = "customCalender form-control" })
+                                </div>
+                            </div>
+                            <div class=" col-xs-12 col-sm-6">
+                                <div class="col-sm-3">
+                                    @Html.LabelFor(x => x.UserProfile.Religion, htmlAttributes: new
+                                    {
+                                        @class = "control-label"
+
+                                    })
+                                </div>
+                                <div class="col-sm-9">@Html.EditorFor(x => x.UserProfile.Religion)</div>
+                            </div>
+                        </div>
+                        <hr class="ui-menu-divider" />
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="col-sm-3">
+                                    @Html.LabelFor(x => x.UserProfile.AnualIncome, htmlAttributes: new
+                                    {
+                                        @class = "control-label"
+
+                                    })
+                                </div>
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(x => x.UserProfile.AnualIncome)
+                                </div>
+                            </div>
+                            <div class=" col-xs-12 col-sm-6">
+                                <div class="col-sm-3">
+
+                                    @Html.LabelFor(x => x.UserProfile.Occupation, new { @class = "control-label" })
+                                </div>
+                                <div class="col-sm-9">@Html.DropDownListFor(x => x.UserProfile.Occupation,  new SelectList(Model.Occupations, "Id", "Occupation1"), "--Select--", new { @class = "form-control" })</div>
+                            </div>
+                        </div>
+                        <hr class="ui-menu-divider" />
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="col-sm-3">
+                                    @Html.LabelFor(x => x.UserProfile.Employed, htmlAttributes: new
+                                    {
+                                        @class = "control-label"
+
+                                    })
+                                </div>
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(x => x.UserProfile.Employed)
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr class="ui-menu-divider" />
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="col-sm-3">
+                                    @Html.LabelFor(x => x.UserProfile.Country, htmlAttributes: new
+                                    {
+                                        @class = "control-label"
+
+                                    })
+                                </div>
+                                <div class="col-sm-9">
+                                    @*@Html.EditorFor(x => x.UserProfile.Country)*@
+                                    <select name="Country" class="form-control">
+                                        <option value="Pakistan">Pakistan</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class=" col-xs-12 col-sm-6">
+                                <div class="col-sm-3">
+                                    @Html.LabelFor(x => x.UserProfile.City, htmlAttributes: new
+                                    {
+                                        @class = "control-label"
+
+                                    })
+                                </div>
+                                <div class="col-sm-9">@Html.EditorFor(x => x.UserProfile.City)</div>
+                            </div>
+                        </div>
+                        <hr class="ui-menu-divider" />
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="col-sm-3">
+                                    @Html.LabelFor(x => x.UserProfile.Address, htmlAttributes: new
+                                    {
+                                        @class = "control-label"
+
+                                    })
+                                </div>
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(x => x.UserProfile.Address)
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="ui-menu-divider" />
+                        <div class="text-center"><input type="submit" class="btn btn-warning btn-lg" value="Submit Profile for Approval" /></div>
+                    }
+                </div>
+
+                <div class="tab-pane fade" id="profile-pills">
+                    @using (Html.BeginForm("EditProfile", "User", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(x => x.UserProfile.UserId)
+                        <h3>Adittional Info</h3>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="col-sm-4">
+                                    <label class="control-label">Describe yourself and what you are looking for in a partner (1000 chars max) *</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.TextAreaFor(x => x.UserProfile.AboutUser, htmlAttributes: new
+                                    {
+                                        @class = "txtArea form-control",
+                                        @onkeypress = "return imposeMaxLength(event, this, 1000);"
+                                    })
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="ui-menu-divider" />
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="col-sm-4">
+                                    <label class="control-label">Contact Details</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.TextAreaFor(x => x.UserProfile.ContactDetails, htmlAttributes: new
+                                    {
+                                        @class = "txtArea form-control",
+                                        @style = "width:350px;height:150px;",
+                                    })
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="ui-menu-divider" />
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="col-sm-4">
+                                    @Html.LabelFor(x => x.UserProfile.Phone, htmlAttributes: new
+                                    {
+                                        @class = "control-label",
+                                    })
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(x => x.UserProfile.Phone)
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr class="ui-menu-divider" />
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8">
+                                <div class="col-sm-3">
+                                    @Html.LabelFor(x => x.UserProfile.Complexion, htmlAttributes: new
+                                    {
+                                        @class = "control-label",
+                                    })
+                                </div>
+                                <div class="col-sm-9">
+                                    @*@Html.EditorFor(x => x.UserProfile.Complexion)*@
+
+                                    <div class="col-md-3">@Html.RadioButtonFor(x => x.UserProfile.Complexion, "Very Fair", new { @class = "radio-inline" })<label>Very Fair</label></div>
+                                    <div class="col-md-3">@Html.RadioButtonFor(x => x.UserProfile.Complexion, "Fair", new { @class = "radio-inline" })<label>Fair</label></div>
+                                    <div class="col-md-3">@Html.RadioButtonFor(x => x.UserProfile.Complexion, "Wheatish", new { @class = "radio-inline" })<label>Wheatish</label></div>
+                                    <div class="col-md-3">@Html.RadioButtonFor(x => x.UserProfile.Complexion, "Dark", new { @class = "radio-inline" })<label>Dark</label></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="ui-menu-divider" />
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-10">
+                                <div class="col-sm-2">
+                                    @Html.LabelFor(x => x.UserProfile.MaritalStatus, htmlAttributes: new
+                                    {
+                                        @class = "control-label",
+                                    })
+                                </div>
+                                <div class="col-sm-10">
+                                    @*@Html.EditorFor(x => x.UserProfile.Complexion)*@
+
+                                    <div class="col-md-4">@Html.RadioButtonFor(x => x.UserProfile.MaritalStatus, "Never Married", new { @class = "radio-inline" })<label>Never Married</label></div>
+                                    <div class="col-md-3">@Html.RadioButtonFor(x => x.UserProfile.MaritalStatus, "Divorced", new { @class = "radio-inline" })<label>Divorced</label></div>
+                                    <div class="col-md-3">@Html.RadioButtonFor(x => x.UserProfile.MaritalStatus, "Widowed", new { @class = "radio-inline" })<label>Widowed</label></div>
+                                    <div class="col-md-2">@Html.RadioButtonFor(x => x.UserProfile.MaritalStatus, "Married", new { @class = "radio-inline" })<label>Married</label></div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="ui-menu-divider" />
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-10">
+                                <div class="col-sm-2">
+                                    @Html.LabelFor(x => x.UserProfile.BodyType, htmlAttributes: new
+                                    {
+                                        @class = "control-label",
+                                    })
+                                </div>
+                                <div class="col-sm-10">
+                                    @*@Html.EditorFor(x => x.UserProfile.Complexion)*@
+
+                                    <div class="col-md-4">@Html.RadioButtonFor(x => x.UserProfile.BodyType, "Average", new { @class = "radio-inline" })<label>Average</label></div>
+                                    <div class="col-md-3">@Html.RadioButtonFor(x => x.UserProfile.BodyType, "Athletic", new { @class = "radio-inline" })<label>Athletic</label></div>
+                                    <div class="col-md-3">@Html.RadioButtonFor(x => x.UserProfile.BodyType, "Slim", new { @class = "radio-inline" })<label>Slim</label></div>
+                                    <div class="col-md-2">@Html.RadioButtonFor(x => x.UserProfile.BodyType, "Heavy", new { @class = "radio-inline" })<label>Heavy</label></div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="ui-menu-divider" />
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-10">
+                                <div class="col-sm-2">
+                                    @Html.LabelFor(x => x.UserProfile.PersonalValues, htmlAttributes: new
+                                    {
+                                        @class = "control-label",
+                                    })
+                                </div>
+                                <div class="col-sm-10">
+                                    @*@Html.EditorFor(x => x.UserProfile.Complexion)*@
+
+                                    <div class="col-md-4">@Html.RadioButtonFor(x => x.UserProfile.PersonalValues, "Traditional", new { @class = "radio-inline" })<label>Traditional</label></div>
+                                    <div class="col-md-3">@Html.RadioButtonFor(x => x.UserProfile.PersonalValues, "Moderate", new { @class = "radio-inline" })<label>Moderate</label></div>
+                                    <div class="col-md-3">@Html.RadioButtonFor(x => x.UserProfile.PersonalValues, "Liberal", new { @class = "radio-inline" })<label>Liberal</label></div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="ui-menu-divider" />
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-10">
+                                <div class="col-sm-2">
+                                    @Html.LabelFor(x => x.UserProfile.ResidencyStatus, htmlAttributes: new
+                                    {
+                                        @class = "control-label",
+                                    })
+                                </div>
+                                <div class="col-sm-10">
+                                    @*@Html.EditorFor(x => x.UserProfile.Complexion)*@
+
+                                    <div class="col-md-4">@Html.RadioButtonFor(x => x.UserProfile.ResidencyStatus, "Permanent", new { @class = "radio-inline" })<label>Permanent</label></div>
+                                    <div class="col-md-3">@Html.RadioButtonFor(x => x.UserProfile.ResidencyStatus, "Student Visa", new { @class = "radio-inline" })<label>Student Visa</label></div>
+                                    <div class="col-md-3">@Html.RadioButtonFor(x => x.UserProfile.ResidencyStatus, "Citizen", new { @class = "radio-inline" })<label>Citizen</label></div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="ui-menu-divider" />
+                        
+                        <div class="row">
+                            <div class=" col-xs-12 col-sm-6">
+                                <div class="col-sm-3">
+
+                                    @Html.LabelFor(x => x.UserProfile.Height, new { @class = "control-label" })
+                                </div>
+                                <div class="col-sm-9">@Html.DropDownListFor(x => x.UserProfile.Height, new SelectList(Model.Heights, "Id", "Height1"), "--Select--", new { @class = "form-control" })</div>
+                            </div>
+                        </div>
+                        <hr class="ui-menu-divider" />
+                        <div class="text-center"><input type="submit" class="btn btn-success btn-lg" value="Save Profile" /></div>
+                    }
+                </div>
+
+                <div class="tab-pane fade" id="profile-pic-pills">
+                    <h3>Your Profile Pics</h3>
+                    <div class="img-thumbnail">
+                        @if (String.IsNullOrEmpty(Model.UserProfile.ProfileImage))
+                        {
+                            <img class="img-responsive" src="~/Images/img/nophoto.jpeg" />
+                        }
+                        else
+                        {
+                            <img style="cursor: pointer" data-toggle="modal" data-target="#myModal" class="img-responsive" src="~/UserUploads/@Model.UserProfile.Email/@Model.UserProfile.ProfileImage" height="200" width="200" />
+                        }
+                    </div>
+                    @using (Html.BeginForm("UploadImage", "User", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-group" }))
+                    {
+                        @Html.HiddenFor(x => x.UserProfile.UserId);
+                        <input type="file" name="file" class="btn btn-info" />
+                        <input type="submit" name="submit" value="Upload Image" class="btn btn-success" />
+                    }
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <center><img class="img-responsive" src="~/UserUploads/@Model.UserProfile.Email/@Model.UserProfile.ProfileImage" /></center>
+                                </div>
+                                @*<div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>*@
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/JS/jquery-2.1.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.text-box').addClass('form-control');
+
+        //$('#DateOfBirth').attr('readonly', 'readonly');
+        
+
+        //$('#DateOfBirth').attr('style', 'cursor:pointer');
+
+        $('#AboutUser').attr('style', 'resize:none; height:300px');
+
+        @*$('#Occupation').val('@Model.Occupations');
+
+        $('#Height').val('@Model.Heights');*@
+
+        $('#UserDOB').val('@Model.UserProfile.DateOfBirth.ToString("dd-MMM-yy")');
+
+        $('#Phone').keydown(function () {
+            isNumberKey(event);
+        });
+
+        $('#UserProfile_Email').attr('readonly', 'readonly');
+    })
+</script>

@@ -1,0 +1,85 @@
+﻿@using Matrimonial.ClientModels
+@using Matrimonial.Models
+@model List<Matrimonial.ClientModels.UserProfileModel>
+    @{
+        ViewBag.Title = "ShortLists";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+<div id="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1><span><i class="fa fa-list-ul"></i></span>&nbsp;Short Listed Profiles</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" style="padding-top: 40px">
+        @foreach (UserProfileModel p in Model)
+        {
+            <div class="row well">
+                <div class="col-md-2">
+                    <div class="text-center">
+                        @if (string.IsNullOrEmpty(p.ProfileImage))
+                        {
+                            <img class="img-thumbnail img-responsive" src="~/Images/img/nophoto.jpeg" style=" width: 200px;" />
+                        }
+                        else
+                        {
+                            <img class="img-thumbnail img-responsive" src="~/UserUploads/@p.Email/@p.ProfileImage" data-toggle="modal" data-target="#myModal" style="width: 200px; cursor: pointer" />
+                        }
+                    </div>
+                    <br />
+                    <br />
+
+                    <div class="text-center">
+                        <a href="/User/RemoveFromShortList/?id=@p.UserId" class="btn btn-warning"><i class="fa fa-fw fa-legal"> </i>Remove</a>
+                    </div>
+                    <div class="text-center" style="padding-top: 10px">
+                        <a href="#" class="btn btn-success disabled"><i class="fa fa-fw fa-heart-o"> </i>Send Proposal</a>
+                    </div>
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <center><img class="img-responsive" src="~/UserUploads/@p.Email/@p.ProfileImage"/></center>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                @*<div class="row">
+                        <a href="@Url.Action("EditProfile", "User")" class="btn btn-success"> <i class="fa fa-fw fa-plus-circle"> </i>Edit Profile </a>
+                    </div>*@
+
+                <div class="col-md-4">
+                    <label class="control-label">Name: </label><span>@p.FirstName @p.LastName</span>
+                    <br><label class="control-label">Age: </label><span>@{ TimeSpan x = (DateTime.Now - p.DateOfBirth); }@(Math.Round(x.TotalDays / 365)) yrs</span>
+                    <br><label class="control-label">Gender: </label><span>@p.Gender</span>
+                    <br><label class="control-label">Date of Dirth: </label><span>@p.DateOfBirth.ToLongDateString()</span>
+                    <br><label class="control-label">Religion: </label><span>@p.Religion</span>
+                    <br><label class="control-label">Occupation: </label><span>@p.Occupation</span>
+                    <br><label class="control-label">Employee: </label><span>@p.Employed</span>
+                    <br><label class="control-label">Country: </label><span>@p.Country</span>
+                    <br><label class="control-label">City: </label><span>@p.City</span>
+                    <br><label class="control-label">Address: </label><span>@p.Address</span>
+                    <br><label class="control-label">Height: </label><span>@p.Height</span>
+                </div>
+
+                <div class="col-md-4">
+                    <br><label class="control-label">Marital Status: </label><span>@p.MaritalStatus</span>
+                    <br><label class="control-label">Complexity: </label><span>@p.Complexion</span>
+                    <br><label class="control-label">Body Type: </label><span>@p.BodyType</span>
+                    <br><label class="control-label">Personal values: </label><span>@p.PersonalValues</span>
+                    <br><label class="control-label">Residency Status: </label><span>@p.ResidencyStatus</span>
+                    <br><label class="control-label">Working With: </label><span>@p.WorkingWith</span>
+                </div>
+
+                @*<div class="col-md-4"></div>*@
+            </div>
+
+        }
+    </div>

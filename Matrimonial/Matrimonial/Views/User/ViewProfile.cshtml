@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "ViewProfile";
+}
+@model Matrimonial.ClientModels.UserProfileModel
+<div id="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2><label><i class="fa fa-user"></i></label>&nbsp;Your Profile</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>How your profile will appear to other people</h3>
+        </div>
+    </div>
+    <div class="row well">
+        <div class="col-md-2">
+            <div class="text-center">
+                @if (string.IsNullOrEmpty(Model.ProfileImage))
+                {
+                    <img class="img-thumbnail img-responsive" src="~/Images/img/nophoto.jpeg" style="height: 150px; width: 150px;" />
+                }
+                else
+                {
+                    <img class="img-thumbnail img-responsive" src="~/UserUploads/@Model.Email/@Model.ProfileImage" data-toggle="modal" data-target="#myModal" style="height: 150px; width: 150px; cursor: pointer" />
+                }
+
+            </div>
+            <br />
+            <br />
+
+            <div class="text-center">
+                <a href="@Url.Action("EditProfile", "User")" class="btn btn-success"><i class="fa fa-fw fa-plus-square"> </i>Edit Profile</a>
+                @*@Html.ActionLink("Edit Profile", "EditProfile", null, htmlAttributes: new { @class = "btn btn-success" })*@
+            </div>
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <center><img class="img-responsive" src="~/UserUploads/@Model.Email/@Model.ProfileImage" /></center>
+                        </div>
+                        @*<div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>*@
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        @*<div class="row">
+                <a href="@Url.Action("EditProfile", "User")" class="btn btn-success"> <i class="fa fa-fw fa-plus-circle"> </i>Edit Profile </a>
+            </div>*@
+
+        <div class="col-md-4">
+            <label class="control-label">Name: </label><span>@Model.FirstName @Model.LastName</span>
+            <br><label class="control-label">Age: </label><span>@{ TimeSpan x = (DateTime.Now - Model.DateOfBirth); }@(x.Days / 365) yrs</span>
+            <br><label class="control-label">Gender: </label><span>@Model.Gender</span>
+            <br><label class="control-label">Date of Dirth: </label><span>@Model.DateOfBirth.ToLongDateString()</span>
+            <br><label class="control-label">Religion: </label><span>@Model.Religion</span>
+            <br><label class="control-label">Occupation: </label>@{if (ViewBag.occupation != null) {<span>@ViewBag.occupation.Occupation1</span>}}
+            <br><label class="control-label">Employee: </label><span>@Model.Employed</span>
+            <br><label class="control-label">Country: </label><span>@Model.Country</span>
+            <br><label class="control-label">City: </label><span>@Model.City</span>
+            <br><label class="control-label">Address: </label><span>@Model.Address</span>
+            <br><label class="control-label">Height: </label>@{
+                if (ViewBag.height != null)
+                {
+                    <span>@ViewBag.height.Height1</span>}}
+        </div>
+
+        <div class="col-md-4">
+            <br><label class="control-label">Marital Status: </label><span>@Model.MaritalStatus</span>
+            <br><label class="control-label">Marital Status: </label><span>@Model.AnualIncome</span>
+            <br><label class="control-label">Complexity: </label><span>@Model.Complexion</span>
+            <br><label class="control-label">Body Type: </label><span>@Model.BodyType</span>
+            <br><label class="control-label">Personal values: </label><span>@Model.PersonalValues</span>
+            <br><label class="control-label">Residency Status: </label><span>@Model.ResidencyStatus</span>
+        </div>
+
+        @*<div class="col-md-4"></div>*@
+    </div>
+
+</div>

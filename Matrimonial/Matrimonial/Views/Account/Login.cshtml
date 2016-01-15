@@ -1,0 +1,65 @@
+﻿@model Matrimonial.Models.UserProfile
+@{
+    ViewBag.Title = "Log in";
+}
+
+<div class="container">
+
+    @if (ViewBag.isUser == false)
+    {
+        <div class='col-md-12'><div class='alert alert-dismissible alert-danger'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Ooops!</strong> Invalid Username or password.</div></div>
+    }
+
+    <div class="center-block">
+        @using (Html.BeginForm("LoginUser", "Account", FormMethod.Post, new { @class = "form-signin well well-sm", @onsubmit = "return validateForm()" }))
+        {
+
+            <div id="Register" class="form-group well-sm col-md-12">
+                <fieldset>
+                    <legend class="label label-info">Sign In</legend>
+                    <span id="credentials" class="text-danger"></span><br />
+                    <span>Email *</span>
+                    @*<input type="text" name="username"
+                        class="form-control" maxlength="20" autocomplete="on"
+                        id="uname" placeholder="Username" onblur="removeborder()" />*@
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                        @Html.TextBoxFor(x => x.Email, htmlAttributes: new
+                        {
+                            @class = "form-control",
+                            autocomplete = "on",
+                            onblur = "removeBorder()",
+                            placeholder = "Email",
+                            @autofocus = "autofocus"
+                        })
+                    </div>
+
+                    <br />
+                    <span>Password *<br /><span id="pwd" class="text-danger"></span></span>
+                    <div class="form-group input-group">
+                        <span class="input-group-addon" style="padding-right: 15px"><i class="fa fa-lock"></i></span>
+                        @Html.PasswordFor(x => x.Password, htmlAttributes: new
+                        {
+                            @class = "form-control",
+                            autocomplete = "on",
+                            onblur = "removeBorder()",
+                            placeholder = "Password",
+                            style = "margin-bottom: 0"
+                        })
+                    </div>
+                </fieldset>
+            </div>
+            <input type="submit" class="btn btn-sm btn-primary" id="registerBtn"
+                   value="Sign in" role="button" />
+            <a href="@Url.Action("Login", "Admin")" class="btn btn-sm btn-success">Login as Admin</a>
+            <br /><a href="#">Forgot your password?</a>
+        }
+    </div>
+</div>
+
+<script src="~/JS/jquery-2.1.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".form-control")[0].focus();
+    })
+</script>

@@ -1,0 +1,59 @@
+﻿@{
+    Layout = null;
+}
+@using Matrimonial.ClientModels
+@using Matrimonial.Models
+
+@model List<Matrimonial.ClientModels.UserProfileModel>
+@{ UserProfileModel temp = (UserProfileModel)Session["user"];}
+@if (Model.Count == 0)
+{
+    <h2>No results Found.</h2>
+}
+else
+{
+foreach (UserProfileModel u in Model)
+ {
+    if(temp.UserId == u.UserId)
+    {continue;}
+
+     <div class="col-md-4">
+         <div class="panel panel-warning">
+             <div class="panel-heading">
+                 @u.FirstName&nbsp;@u.LastName
+             </div>
+             <div class="panel-body">
+                 <div class="col-lg-12">
+                     <div class="col-md-5">
+                         @if (string.IsNullOrEmpty(u.ProfileImage))
+                         {
+                             <img class="img-thumbnail img-responsive" src="~/Images/img/nophoto.jpeg" style="height: 100px; width: 100px;" />
+                         }
+                         else
+                         {
+                             <img class="img-thumbnail img-responsive" src="~/UserUploads/@u.Email/@u.ProfileImage" data-toggle="modal" data-target="#myModal" style="height: 100px; width: 100px; cursor: pointer" />
+                         }
+                     </div>
+                     <div class="col-md-7" style="padding-right: 5px">
+                         <label class="control-label">Age: </label><span>@u.Age</span><br />
+                         <label class="control-label">City: </label><span>@u.City</span><br />
+                         <label class="control-label">Gender: </label><span>@u.Gender</span><br />
+                         <label class="control-label">Marital Status: </label><span>@u.MaritalStatus</span>
+                     </div>
+                 </div>
+             </div>
+             <div class="panel-footer">
+                 @if (bool.Parse(temp.IsVerified))
+                 {
+                     <a class="btn btn-success" href="/User/AcceptRequest?Id=@u.UserId"><i class="fa fa-fw fa-heart"></i>Express Interest</a>
+                 }
+                 else
+                 {
+                     <a class="btn btn-success disabled" href="/User/AcceptRequest?Id=@u.UserId"><i class="fa fa-fw fa-heart"></i>Express Interest</a>
+                 }
+
+             </div>
+         </div>
+     </div>
+ }
+}

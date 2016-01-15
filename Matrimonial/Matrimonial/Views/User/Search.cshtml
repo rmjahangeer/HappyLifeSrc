@@ -1,0 +1,93 @@
+﻿@using Matrimonial.ClientModels
+@using Matrimonial.Models
+@model List<UserProfileModel>
+@{
+    ViewBag.Title = "Search";
+}
+<div id="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1><span><i class="fa fa-search"></i></span>&nbsp;Search Results</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    @{ var temp = (UserProfileModel) Session["user"];}
+    @Html.Partial("_SearchPartial")
+
+    <h1 id="nothing"></h1>
+    <div class="col-md-12">
+        <div id="results" class="row">
+            @foreach (UserProfileModel u in Model)
+            {
+
+                if (!u.Gender.Equals(temp.Gender))
+                {
+                    <div class="col-md-4">
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                @u.FirstName&nbsp;@u.LastName
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-lg-12">
+                                    <div class="col-md-5">
+                                        @if (string.IsNullOrEmpty(u.ProfileImage))
+                                        {
+                                            <img class="img-thumbnail img-responsive" src="~/Images/img/nophoto.jpeg" style="height: 100px; width: 100px;" />
+                                        }
+                                        else
+                                        {
+                                            <img class="img-thumbnail img-responsive" src="~/UserUploads/@u.Email/@u.ProfileImage" data-toggle="modal" data-target="#myModal" style="height: 100px; width: 100px; cursor: pointer" />
+                                        }
+                                    </div>
+                                    <div class="col-md-7" style="padding-right: 5px">
+                                        <label class="control-label">Birth date: </label><span>@u.DateOfBirth.ToShortDateString()</span><br />
+                                        <label class="control-label">City: </label><span>@u.City</span><br />
+                                        <label class="control-label">Gender: </label><span>@u.Gender</span><br />
+                                        <label class="control-label">Marital Status: </label><span>@u.MaritalStatus</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                @if (bool.Parse(temp.IsVerified))
+                                {
+                                    <a class="btn btn-success" href="/User/SendRequest?userId=@temp.UserId&requestedId=@u.UserId"><i class="fa fa-fw fa-heart"></i>Express Interest</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-success disabled" href="#"><i class="fa fa-fw fa-heart"></i>Express Interest</a>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        
+        <div class="row" id="loadresult"></div>
+    </div>
+    
+    
+    
+
+    
+</div>
+<script src="~/JS/jquery-2.1.4.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#find').click(function () {
+            var age = $('#age').val();
+            var city = $('#city').val();
+            var gender = $('#gender').val();
+            var maritalStatus = $('#maritalStatus').val();
+            $('#results').hide();
+            $('#loadresult').load("/User/SearchResults?age=" + age + "&city=" + city + "&gender=" + gender + "&maritalStatus=" + maritalStatus);
+        });
+    })
+</script>
