@@ -10,11 +10,13 @@ namespace Matrimonial.Controllers
     {
         IUserRepository _entityUser = new UserRepository();
         IAdminRepositiry _adminRepositiry = new AdminRepository();
-        public ActionResult LoginUser(UserProfileModel user)
+
+        [HttpPost]
+        public ActionResult Login(UserProfileModel user)
         {
             
             var temp = _entityUser.GetUser(user.Email);
-            if (_entityUser.IsUser(user.MapClientToServer()) && temp != null)
+            if (_entityUser.IsUser(user.MapClientToServer()))
             {
                 Session["user"] = temp.MapServerToClient();
                 Session.Timeout = 30;
@@ -23,7 +25,7 @@ namespace Matrimonial.Controllers
             else
             {
                 ViewBag.isUser = false;
-                return View("Login");
+                return View();
             }
             
             return RedirectToAction("Index", "Home");
@@ -60,7 +62,8 @@ namespace Matrimonial.Controllers
             return View();
         }
 
-        public ActionResult RegisterIn(UserProfileModel user)
+        [HttpPost]
+        public ActionResult Register(UserProfileModel user)
         {
             user.IsVerified = "false";
             user.Age = DateTime.Now.Subtract(user.DateOfBirth).Days/365;
@@ -75,12 +78,12 @@ namespace Matrimonial.Controllers
             //Session["user"] = null;
             return RedirectToAction("Login");
         }
-        public ActionResult LogOutAdmin()
-        {
-            //Session["admin"] = null;
-            Session.Abandon();
-            Session.RemoveAll();
-            return RedirectToAction("Index", "Home");
-        }
+        //public ActionResult LogOutAdmin()
+        //{
+        //    //Session["admin"] = null;
+        //    Session.Abandon();
+        //    Session.RemoveAll();
+        //    return RedirectToAction("Index", "Home");
+        //}
     }
 }

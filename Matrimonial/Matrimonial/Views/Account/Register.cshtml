@@ -14,7 +14,7 @@
         <div class='container'><div class='alert alert-dismissible alert-success'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Congratulations!</strong> You successfully created account. <a href='@Url.Action("Login","Account")' class='alert-link'>Signin</a> to continue.</div></div>
     }
     <div class="row well">
-        @using (@Html.BeginForm("RegisterIn", "Account", FormMethod.Post, htmlAttributes: new { @class = "col-md-5", @onsubmit = "return validateForm(this);" }))
+        @using (@Html.BeginForm("Register", "Account", FormMethod.Post, htmlAttributes: new { @class = "col-md-5", @onsubmit = "return validateForm(this);" }))
         {
             @*<form class="col-md-5" method="post" onsubmit=" return validateForm(this); ">*@
             <div id="Register">

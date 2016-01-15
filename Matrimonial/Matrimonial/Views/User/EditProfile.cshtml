@@ -45,19 +45,22 @@
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
+                @using (Html.BeginForm("EditProfile", "User", FormMethod.Post))
+                {
+                    <div class="tab-pane fade in active" id="home-pills">
 
-                <div class="tab-pane fade in active" id="home-pills">
-                    @using (Html.BeginForm("EditProfile", "User", FormMethod.Post))
-                    {
                         @Html.HiddenFor(x => x.UserProfile.UserId)
+                        @Html.HiddenFor(x => x.UserProfile.Password)
+                        @Html.HiddenFor(x => x.UserProfile.Gender)
+                        @Html.HiddenFor(x => x.UserProfile.Country)
                         <h3>Information reqired for approval</h3>
                         <div class="row">
                             <div class="col-xs-12 col-sm-6">
                                 <div class="col-sm-3">
                                     @Html.LabelFor(x => x.UserProfile.FirstName, htmlAttributes: new
-                                    {
-                                        @class = "control-label",
-                                    })
+                    {
+                        @class = "control-label",
+                    })
                                 </div>
                                 <div class="col-sm-9">
                                     @Html.EditorFor(x => x.UserProfile.FirstName)
@@ -66,10 +69,10 @@
                             <div class=" col-xs-12 col-sm-6">
                                 <div class="col-sm-3">
                                     @Html.LabelFor(x => x.UserProfile.LastName, htmlAttributes: new
-                                    {
-                                        @class = "control-label"
+                    {
+                        @class = "control-label"
 
-                                    })
+                    })
                                 </div>
                                 <div class="col-sm-9">@Html.EditorFor(x => x.UserProfile.LastName)</div>
                             </div>
@@ -79,10 +82,10 @@
                             <div class="col-xs-12 col-sm-6">
                                 <div class="col-sm-3">
                                     @Html.LabelFor(x => x.UserProfile.Email, htmlAttributes: new
-                                    {
-                                        @class = "control-label"
+                    {
+                        @class = "control-label"
 
-                                    })
+                    })
                                 </div>
                                 <div class="col-sm-9">
                                     @Html.EditorFor(x => x.UserProfile.Email)
@@ -94,22 +97,22 @@
                             <div class="col-xs-12 col-sm-6">
                                 <div class="col-sm-3">
                                     @Html.LabelFor(x => x.UserProfile.DateOfBirth, htmlAttributes: new
-                                    {
-                                        @class = "control-label"
+                    {
+                        @class = "control-label"
 
-                                    })
+                    })
                                 </div>
                                 <div class="col-sm-9">
-                                    @Html.TextBoxFor(x => x.UserProfile.DateOfBirth, new { @id="UserDOB", @class = "customCalender form-control" })
+                                    @Html.TextBoxFor(x => x.UserProfile.DateOfBirth, new { @id = "UserDOB", @class = "customCalender form-control" })
                                 </div>
                             </div>
                             <div class=" col-xs-12 col-sm-6">
                                 <div class="col-sm-3">
                                     @Html.LabelFor(x => x.UserProfile.Religion, htmlAttributes: new
-                                    {
-                                        @class = "control-label"
+                    {
+                        @class = "control-label"
 
-                                    })
+                    })
                                 </div>
                                 <div class="col-sm-9">@Html.EditorFor(x => x.UserProfile.Religion)</div>
                             </div>
@@ -119,10 +122,10 @@
                             <div class="col-xs-12 col-sm-6">
                                 <div class="col-sm-3">
                                     @Html.LabelFor(x => x.UserProfile.AnualIncome, htmlAttributes: new
-                                    {
-                                        @class = "control-label"
+                    {
+                        @class = "control-label"
 
-                                    })
+                    })
                                 </div>
                                 <div class="col-sm-9">
                                     @Html.EditorFor(x => x.UserProfile.AnualIncome)
@@ -133,7 +136,7 @@
 
                                     @Html.LabelFor(x => x.UserProfile.Occupation, new { @class = "control-label" })
                                 </div>
-                                <div class="col-sm-9">@Html.DropDownListFor(x => x.UserProfile.Occupation,  new SelectList(Model.Occupations, "Id", "Occupation1"), "--Select--", new { @class = "form-control" })</div>
+                                <div class="col-sm-9">@Html.DropDownListFor(x => x.UserProfile.Occupation, new SelectList(Model.Occupations, "Id", "Occupation1"), "--Select--", new { @class = "form-control" })</div>
                             </div>
                         </div>
                         <hr class="ui-menu-divider" />
@@ -141,10 +144,10 @@
                             <div class="col-xs-12 col-sm-6">
                                 <div class="col-sm-3">
                                     @Html.LabelFor(x => x.UserProfile.Employed, htmlAttributes: new
-                                    {
-                                        @class = "control-label"
+                    {
+                        @class = "control-label"
 
-                                    })
+                    })
                                 </div>
                                 <div class="col-sm-9">
                                     @Html.EditorFor(x => x.UserProfile.Employed)
@@ -157,10 +160,10 @@
                             <div class="col-xs-12 col-sm-6">
                                 <div class="col-sm-3">
                                     @Html.LabelFor(x => x.UserProfile.Country, htmlAttributes: new
-                                    {
-                                        @class = "control-label"
+                    {
+                        @class = "control-label"
 
-                                    })
+                    })
                                 </div>
                                 <div class="col-sm-9">
                                     @*@Html.EditorFor(x => x.UserProfile.Country)*@
@@ -172,10 +175,10 @@
                             <div class=" col-xs-12 col-sm-6">
                                 <div class="col-sm-3">
                                     @Html.LabelFor(x => x.UserProfile.City, htmlAttributes: new
-                                    {
-                                        @class = "control-label"
+                    {
+                        @class = "control-label"
 
-                                    })
+                    })
                                 </div>
                                 <div class="col-sm-9">@Html.EditorFor(x => x.UserProfile.City)</div>
                             </div>
@@ -185,10 +188,10 @@
                             <div class="col-xs-12 col-sm-6">
                                 <div class="col-sm-3">
                                     @Html.LabelFor(x => x.UserProfile.Address, htmlAttributes: new
-                                    {
-                                        @class = "control-label"
+                    {
+                        @class = "control-label"
 
-                                    })
+                    })
                                 </div>
                                 <div class="col-sm-9">
                                     @Html.EditorFor(x => x.UserProfile.Address)
@@ -197,12 +200,11 @@
                         </div>
                         <hr class="ui-menu-divider" />
                         <div class="text-center"><input type="submit" class="btn btn-warning btn-lg" value="Submit Profile for Approval" /></div>
-                    }
-                </div>
 
-                <div class="tab-pane fade" id="profile-pills">
-                    @using (Html.BeginForm("EditProfile", "User", FormMethod.Post))
-                    {
+                    </div>
+
+                    <div class="tab-pane fade" id="profile-pills">
+
                         @Html.HiddenFor(x => x.UserProfile.UserId)
                         <h3>Adittional Info</h3>
                         <div class="row">
@@ -212,10 +214,10 @@
                                 </div>
                                 <div class="col-sm-8">
                                     @Html.TextAreaFor(x => x.UserProfile.AboutUser, htmlAttributes: new
-                                    {
-                                        @class = "txtArea form-control",
-                                        @onkeypress = "return imposeMaxLength(event, this, 1000);"
-                                    })
+                    {
+                        @class = "txtArea form-control",
+                        @onkeypress = "return imposeMaxLength(event, this, 1000);"
+                    })
                                 </div>
                             </div>
                         </div>
@@ -228,10 +230,10 @@
                                 </div>
                                 <div class="col-sm-8">
                                     @Html.TextAreaFor(x => x.UserProfile.ContactDetails, htmlAttributes: new
-                                    {
-                                        @class = "txtArea form-control",
-                                        @style = "width:350px;height:150px;",
-                                    })
+                    {
+                        @class = "txtArea form-control",
+                        @style = "width:350px;height:150px;",
+                    })
                                 </div>
                             </div>
                         </div>
@@ -241,9 +243,9 @@
                             <div class="col-xs-12 col-sm-6">
                                 <div class="col-sm-4">
                                     @Html.LabelFor(x => x.UserProfile.Phone, htmlAttributes: new
-                                    {
-                                        @class = "control-label",
-                                    })
+                    {
+                        @class = "control-label",
+                    })
                                 </div>
                                 <div class="col-sm-8">
                                     @Html.EditorFor(x => x.UserProfile.Phone)
@@ -257,9 +259,9 @@
                             <div class="col-xs-12 col-sm-8">
                                 <div class="col-sm-3">
                                     @Html.LabelFor(x => x.UserProfile.Complexion, htmlAttributes: new
-                                    {
-                                        @class = "control-label",
-                                    })
+                    {
+                        @class = "control-label",
+                    })
                                 </div>
                                 <div class="col-sm-9">
                                     @*@Html.EditorFor(x => x.UserProfile.Complexion)*@
@@ -278,9 +280,9 @@
                             <div class="col-xs-12 col-sm-10">
                                 <div class="col-sm-2">
                                     @Html.LabelFor(x => x.UserProfile.MaritalStatus, htmlAttributes: new
-                                    {
-                                        @class = "control-label",
-                                    })
+                    {
+                        @class = "control-label",
+                    })
                                 </div>
                                 <div class="col-sm-10">
                                     @*@Html.EditorFor(x => x.UserProfile.Complexion)*@
@@ -300,9 +302,9 @@
                             <div class="col-xs-12 col-sm-10">
                                 <div class="col-sm-2">
                                     @Html.LabelFor(x => x.UserProfile.BodyType, htmlAttributes: new
-                                    {
-                                        @class = "control-label",
-                                    })
+                    {
+                        @class = "control-label",
+                    })
                                 </div>
                                 <div class="col-sm-10">
                                     @*@Html.EditorFor(x => x.UserProfile.Complexion)*@
@@ -322,9 +324,9 @@
                             <div class="col-xs-12 col-sm-10">
                                 <div class="col-sm-2">
                                     @Html.LabelFor(x => x.UserProfile.PersonalValues, htmlAttributes: new
-                                    {
-                                        @class = "control-label",
-                                    })
+                    {
+                        @class = "control-label",
+                    })
                                 </div>
                                 <div class="col-sm-10">
                                     @*@Html.EditorFor(x => x.UserProfile.Complexion)*@
@@ -343,9 +345,9 @@
                             <div class="col-xs-12 col-sm-10">
                                 <div class="col-sm-2">
                                     @Html.LabelFor(x => x.UserProfile.ResidencyStatus, htmlAttributes: new
-                                    {
-                                        @class = "control-label",
-                                    })
+                    {
+                        @class = "control-label",
+                    })
                                 </div>
                                 <div class="col-sm-10">
                                     @*@Html.EditorFor(x => x.UserProfile.Complexion)*@
@@ -359,7 +361,7 @@
                             </div>
                         </div>
                         <hr class="ui-menu-divider" />
-                        
+
                         <div class="row">
                             <div class=" col-xs-12 col-sm-6">
                                 <div class="col-sm-3">
@@ -371,26 +373,25 @@
                         </div>
                         <hr class="ui-menu-divider" />
                         <div class="text-center"><input type="submit" class="btn btn-success btn-lg" value="Save Profile" /></div>
-                    }
-                </div>
-
+                    </div>
+                }
                 <div class="tab-pane fade" id="profile-pic-pills">
                     <h3>Your Profile Pics</h3>
                     <div class="img-thumbnail">
                         @if (String.IsNullOrEmpty(Model.UserProfile.ProfileImage))
                         {
-                            <img class="img-responsive" src="~/Images/img/nophoto.jpeg" />
+                        <img class="img-responsive" src="~/Images/img/nophoto.jpeg" />
                         }
                         else
                         {
-                            <img style="cursor: pointer" data-toggle="modal" data-target="#myModal" class="img-responsive" src="~/UserUploads/@Model.UserProfile.Email/@Model.UserProfile.ProfileImage" height="200" width="200" />
+                        <img style="cursor: pointer" data-toggle="modal" data-target="#myModal" class="img-responsive" src="~/UserUploads/@Model.UserProfile.Email/@Model.UserProfile.ProfileImage" height="200" width="200" />
                         }
                     </div>
                     @using (Html.BeginForm("UploadImage", "User", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-group" }))
                     {
-                        @Html.HiddenFor(x => x.UserProfile.UserId);
-                        <input type="file" name="file" class="btn btn-info" />
-                        <input type="submit" name="submit" value="Upload Image" class="btn btn-success" />
+                    @Html.HiddenFor(x => x.UserProfile.UserId);
+                    <input type="file" name="file" class="btn btn-info" />
+                    <input type="submit" name="submit" value="Upload Image" class="btn btn-success" />
                     }
                     <div id="myModal" class="modal fade" role="dialog">
                         <div class="modal-dialog modal-lg">
@@ -418,7 +419,7 @@
         $('.text-box').addClass('form-control');
 
         //$('#DateOfBirth').attr('readonly', 'readonly');
-        
+
 
         //$('#DateOfBirth').attr('style', 'cursor:pointer');
 

@@ -99,73 +99,6 @@ namespace Matrimonial.Controllers
             }
             return View("Error");
         }
-        //public JsonResult SearchResults()
-        //{
-        //    string city = Request["city"];
-        //    int age = int.Parse(Request["age"]);
-        //    string gender = Request["gender"];
-        //    string maritalStatus = Request["maritalStatus"];
-
-        //    int fromAge = 0;
-        //    int toAge = 0;
-
-        //    if (age == 0)
-        //    {
-        //        fromAge = 0;
-        //        toAge = 200;
-        //    }
-        //    if (age == 1)
-        //    {
-        //        fromAge = 18;
-        //        toAge = 25;
-        //    }
-        //    if (age == 2)
-        //    {
-        //        fromAge = 26;
-        //        toAge = 30;
-        //    }
-        //    if (age == 3)
-        //    {
-        //        fromAge = 31;
-        //        toAge = 40;
-        //    }
-        //    if (age == 4)
-        //    {
-        //        fromAge = 41;
-        //        toAge = 200;
-        //    }
-
-        //    List<UserProfile> list;
-        //    Search s = new Search();
-        //    s.AgeFrom = fromAge;
-        //    s.AgeTo = toAge;
-        //    s.City = city;
-        //    s.Gender = gender;
-        //    s.MaritalStatus = maritalStatus;
-
-        //    list = _entityUser.GetFilteredProfiles(s);
-
-        //    if (list.Count == 0)
-        //        return Json(true, JsonRequestBehavior.AllowGet);
-
-        //    List<Matrimonial.ClientModels.UserProfile> temp = new List<Matrimonial.ClientModels.UserProfile>();
-        //    foreach (UserProfile userProfile in list)
-        //    {
-        //        ClientModels.UserProfile p = new ClientModels.UserProfile()
-        //        {
-        //            Age = userProfile.Age,
-        //        City = userProfile.City,
-        //        MaritalStatus = userProfile.MaritalStatus,
-        //        Email = userProfile.Email,
-        //        FirstName = userProfile.FirstName,
-        //        Gender = userProfile.Gender,
-        //        LastName = userProfile.LastName,
-        //        UserId = userProfile.UserId
-        //        };
-        //        temp.Add(p);
-        //    }
-        //    return Json(temp, JsonRequestBehavior.AllowGet);
-        //}
 
         public ActionResult SearchResults()
         {
@@ -205,14 +138,16 @@ namespace Matrimonial.Controllers
             }
 
             List<UserProfileModel> list;
-            Search s = new Search();
-            s.AgeFrom = fromAge;
-            s.AgeTo = toAge;
-            s.City = city;
-            s.Gender = gender;
-            s.MaritalStatus = maritalStatus;
+            Search searchRequest = new Search
+            {
+                AgeFrom = fromAge,
+                AgeTo = toAge,
+                City = city,
+                Gender = gender,
+                MaritalStatus = maritalStatus
+            };
 
-            list = _entityUser.GetFilteredProfiles(s).Select(x=>x.MapServerToClient()).ToList();
+            list = _entityUser.GetFilteredProfiles(searchRequest).ToList().Select(x => x.MapServerToClient()).ToList();
 
             return View("_SearchResults",list);
         }
@@ -266,26 +201,12 @@ namespace Matrimonial.Controllers
         private List<Height> GetAllHeights()
         {
             List<Height> list = _entityData.GetAllHeights();
-            //List<SelectListItem> listItems = new List<SelectListItem>();
-            //int i = 0;
-            //foreach (Height height in list)
-            //{
-            //    listItems.Add(new SelectListItem(){Text = height.Height1, Value = height.Id.ToString()});
-            //    i++;
-            //}
             return list;
 
         }
         private List<Occupation> GetAllOccupations()
         {
             List<Occupation> list = _entityData.GetAllOccupation();
-            //List<SelectListItem> listItems = new List<SelectListItem>();
-            //int i = 0;
-            //foreach (Occupation occupation in list)
-            //{
-            //    listItems.Add(new SelectListItem(){Text = occupation.Occupation1, Value = occupation.Id.ToString()});
-            //    i++;
-            //}
             return list;
 
         }

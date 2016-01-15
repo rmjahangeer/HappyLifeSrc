@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -52,20 +53,6 @@ namespace Matrimonial.Models
                                 (string.IsNullOrEmpty(search.MaritalStatus)  || x.MaritalStatus.Equals(search.MaritalStatus))))
                             .Select(x => x)
                             .ToList();
-                //if (string.IsNullOrEmpty(search.City) && string.IsNullOrEmpty(search.MaritalStatus) && search.AgeFrom == 0 && search.AgeTo == 0)
-                //    list = entity.UserProfiles.Where(x => x.Gender.Equals(search.Gender)).Select(x => x).ToList();
-
-                //if (string.IsNullOrEmpty(search.City) && string.IsNullOrEmpty(search.MaritalStatus))
-                //    list =
-                //        entity.UserProfiles.Where(
-                //            x => x.Gender.Equals(search.Gender) && x.Age >= search.AgeFrom && x.Age <= search.AgeTo)
-                //            .Select(x => x)
-                //            .ToList();
-
-                //if(string.IsNullOrEmpty(search.City) && string.IsNullOrEmpty(search.MaritalStatus))
-
-                //list = entity.UserProfiles.Where(x => x.Country.Equals(search.City) || 
-                //    x.Gender.Equals(search.Gender)).Select(x => x).ToList();
             }
             catch (Exception e)
             {
@@ -100,115 +87,7 @@ namespace Matrimonial.Models
         {
             try
             {
-                UserProfile u = entity.UserProfiles.FirstOrDefault(x => x.UserId == user.UserId);
-                //UserProfile temp = new UserProfile();
-                Height h = entity.Heights.FirstOrDefault(x => x.Id == u.Height);
-                Occupation o = entity.Occupations.FirstOrDefault(x => x.Id == u.Occupation);
-
-                if (!string.IsNullOrEmpty(user.AboutUser))
-                    u.AboutUser = user.AboutUser;
-               
-                if (!string.IsNullOrEmpty(user.Address))
-                    u.Address = user.Address;
-                
-                if (!string.IsNullOrEmpty(user.AnualIncome))
-                    u.AnualIncome = user.AnualIncome;
-                
-                if (!string.IsNullOrEmpty(user.BodyType))
-                    u.BodyType = user.BodyType;
-                
-                if (!string.IsNullOrEmpty(user.City))
-                    u.City = user.City;
-                
-                if (!string.IsNullOrEmpty(user.Complexion))
-                    u.Complexion = user.Complexion;
-                
-                if (!string.IsNullOrEmpty(user.ContactDetails))
-                    u.ContactDetails = user.ContactDetails;
-                
-                if (!string.IsNullOrEmpty(user.Country))
-                    u.Country = user.Country;
-                
-                if (!string.IsNullOrEmpty(user.Email))
-                    u.Email = user.Email;
-                
-                if (!string.IsNullOrEmpty(user.Employed))
-                    u.Employed = user.Employed;
-                
-                if (!string.IsNullOrEmpty(user.FirstName))
-                    u.FirstName = user.FirstName;
-                
-                if (!string.IsNullOrEmpty(user.Gender))
-                    u.Gender = user.Gender;
-                
-                if (!string.IsNullOrEmpty(user.Height.ToString()))
-                    u.Height = user.Height;
-                
-                if (!string.IsNullOrEmpty(user.LastName))
-                    u.LastName = user.LastName;
-                
-                if (!string.IsNullOrEmpty(user.MaritalStatus))
-                    u.MaritalStatus = user.MaritalStatus;
-                
-                if (!string.IsNullOrEmpty(user.Occupation.ToString()))
-                    u.Occupation = user.Occupation;
-                
-                if (!string.IsNullOrEmpty(user.Password))
-                    u.Password = user.Password;
-                
-                if (!string.IsNullOrEmpty(user.PersonalValues))
-                    u.PersonalValues = user.PersonalValues;
-                
-                if (!string.IsNullOrEmpty(user.Phone))
-                    u.Phone = user.Phone;
-                
-                if (!string.IsNullOrEmpty(user.ProfileImage))
-                    u.ProfileImage = user.ProfileImage;
-                
-                if (!string.IsNullOrEmpty(user.Religion))
-                    u.Religion = user.Religion;
-                
-                if (!string.IsNullOrEmpty(user.ResidencyStatus))
-                    u.ResidencyStatus = user.ResidencyStatus;
-                
-                if (!string.IsNullOrEmpty(user.WorkingWith))
-                    u.WorkingWith = user.WorkingWith;
-                
-                if (!string.IsNullOrEmpty(user.isVerified))
-                    u.isVerified = user.isVerified;
-                
-                
-                    u.DateOfBirth = user.DateOfBirth;
-
-
-                //temp.AboutUser = user.AboutUser;
-                //temp.Address = user.Address;
-                //temp.AnualIncome = user.AnualIncome;
-                //temp.BodyType = user.BodyType;
-                //temp.City = user.City;
-                //temp.Complexion = user.Complexion;
-                //temp.ContactDetails = user.ContactDetails;
-                //temp.Country = user.Country;
-                //temp.DateOfBirth = user.DateOfBirth;
-                //temp.Email = user.Email;
-                //temp.Employed = user.Employed;
-                //temp.FirstName = user.FirstName;
-                //temp.Gender = user.Gender;
-                ////temp.Height = user.Height;
-                //temp.LastName = user.LastName;
-                //temp.MaritalStatus = user.MaritalStatus;
-                ////temp.Occupation = user.Occupation;
-                //temp.Password = user.Password;
-                //temp.PersonalValues = user.PersonalValues;
-                //temp.Phone = user.Phone;
-                //temp.ProfileImage = user.ProfileImage;
-                //temp.Religion = user.Religion;
-                //temp.ResidencyStatus = user.ResidencyStatus;
-                ////temp.UserId = user.UserId;
-                //temp.WorkingWith = user.WorkingWith;
-                //temp.isVerified = user.isVerified;
-
-                entity.Entry(u).State = EntityState.Modified;
+                entity.UserProfiles.AddOrUpdate(user);
                 entity.SaveChanges();
             }
             catch (Exception e)
@@ -293,7 +172,8 @@ namespace Matrimonial.Models
             {
                 UserProfile u = entity.UserProfiles.FirstOrDefault(x => x.UserId == id);
                 u.isVerified = "true";
-                entity.Entry(u).State = EntityState.Modified;
+                //entity.Entry(u).State = EntityState.Modified;
+                entity.UserProfiles.AddOrUpdate(u);
                 entity.SaveChanges();
                 return true;
             }
@@ -308,7 +188,8 @@ namespace Matrimonial.Models
             {
                 UserProfile u = entity.UserProfiles.FirstOrDefault(x => x.UserId == id);
                 u.isVerified = "false";
-                entity.Entry(u).State = EntityState.Modified;
+                //entity.Entry(u).State = EntityState.Modified;
+                entity.UserProfiles.AddOrUpdate(u);
                 entity.SaveChanges();
                 return true;
             }
