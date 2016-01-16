@@ -29,10 +29,10 @@ namespace Matrimonial.Controllers
             return View();
         }
 
-        public ActionResult LoginAdmin(Admin admin)
+        [HttpPost]
+        public ActionResult Login(Admin admin)
         {
-            Admin temp;
-            temp = _adminRepositiry.GetAdmin(admin.Email);
+            Admin temp = _adminRepositiry.GetAdmin(admin.Email);
             if (_adminRepositiry.IsAdmin(admin) && temp != null)
             {
                 Session["admin"] = temp;
@@ -42,7 +42,7 @@ namespace Matrimonial.Controllers
             else
             {
                 ViewBag.isAdmin = false;
-                return View("Login");
+                return RedirectToAction("Login");
             }
 
             return RedirectToAction("Index");
@@ -61,8 +61,7 @@ namespace Matrimonial.Controllers
                 return RedirectToAction("Login", "Admin");
             try
             {
-                HttpPostedFileBase file;
-                file = Request.Files[0];
+                HttpPostedFileBase file = Request.Files[0];
                 if (file != null && file.ContentLength > 0)
                 {
                     string path = Server.MapPath("~/UserUploads/Admin/" + file.FileName);
@@ -98,58 +97,26 @@ namespace Matrimonial.Controllers
         public ActionResult Users()
         {
             List<UserProfileModel> list = _userRepository.GetAllProfiles().ToList().Select(x=>x.MapServerToClient()).ToList();
+            ViewBag.notverify = TempData["notVerify"];
+            ViewBag.err = TempData["err"];
+            ViewBag.verify = TempData["verify"];
             return View(list);
 
         }
         public ActionResult DeleteUser(int id)
         {
-            if (_userRepository.DeleteUser(id))
-            {
-                ViewBag.err = true;
-            }
-            else
-            {
-                ViewBag.err = false;
-            }
-
-            List<UserProfileModel> list = _userRepository.GetAllProfiles().ToList().Select(x=>x.MapServerToClient()).ToList();
-            return View("Users",list);
-
+            TempData["err"] = _userRepository.DeleteUser(id);
+            return RedirectToAction("Users");
         }
         public ActionResult VerifyUser(int id)
         {
-
-            if (_userRepository.VerifyUser(id))
-            {
-                ViewBag.verify = true;
-            }
-            else
-            {
-                ViewBag.verify = false;
-            }
-            
-            List<UserProfileModel> list = _userRepository.GetAllProfiles().ToList().Select(x=>x.MapServerToClient()).ToList();
-            return View("Users",list);
-
+            TempData["verify"] = _userRepository.VerifyUser(id);   
+            return RedirectToAction("Users");
         }
         public ActionResult Disapprove(int id)
         {
-
-            if (_userRepository.Disapprove(id))
-            {
-                ViewBag.notverify = true;
-            }
-            else
-            {
-                ViewBag.notverify = false;
-            }
-            
-            List<UserProfileModel> list = _userRepository.GetAllProfiles().ToList().Select(x=>x.MapServerToClient()).ToList();
-            return View("Users",list);
-
+            TempData["notVerify"] = _userRepository.Disapprove(id);
+            return RedirectToAction("Users");
         }
-
-
-
     }
 }

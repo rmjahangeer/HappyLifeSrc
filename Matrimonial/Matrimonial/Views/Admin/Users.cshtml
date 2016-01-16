@@ -25,6 +25,14 @@ else if (ViewBag.verify == true)
 {
     <div class='col-md-6 col-md-offset-3'><div class='alert alert-dismissible alert-success'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Congratulations!</strong>User Verified</div></div>
 }
+@if (ViewBag.notverify == false)
+{
+    <div class='col-md-6 col-md-offset-3'><div class='alert alert-dismissible alert-danger'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Ooops!</strong> Something went wrong</div></div>
+}
+else if (ViewBag.notverify == true)
+{
+    <div class='col-md-6 col-md-offset-3'><div class='alert alert-dismissible alert-success'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Congratulations!</strong>User Disapproved</div></div>
+}
 
 <div class="row">
     <div class="col-lg-12">
@@ -159,14 +167,14 @@ else if (ViewBag.verify == true)
 
 
                 </td>
-                <td class="text-center"><a href="/Admin/DeleteUser?id=@p.UserId" class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></a></td>
+                <td class="text-center"><a href="@Url.Action("DeleteUser","Admin")/@p.UserId" class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></a></td>
                 @if (!bool.Parse(p.IsVerified))
                 {
-                    <td class="text-center"><a href="/Admin/Disapprove?id=@p.UserId" class="btn btn-warning"><i class="fa fa-fw fa-warning"></i></a></td>
+                    <td class="text-center"><a href="@Url.Action("VerifyUser","Admin")/@p.UserId" class="btn btn-warning"><i class="fa fa-fw fa-warning"></i></a></td>
                 }
                 else
                 {
-                    <td class="text-center"><a href="/Admin/VerifyUser?id=@p.UserId" class="btn btn-success"><i class="fa fa-fw fa-check"></i></a></td>
+                    <td class="text-center"><a href="@Url.Action("Disapprove","Admin")/@p.UserId" class="btn btn-success"><i class="fa fa-fw fa-check"></i></a></td>
                 }
 
             </tr>

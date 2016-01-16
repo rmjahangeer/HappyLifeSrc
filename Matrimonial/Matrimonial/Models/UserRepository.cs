@@ -150,10 +150,15 @@ namespace Matrimonial.Models
             try
             {
                 UserProfile u = entity.UserProfiles.FirstOrDefault(x => x.UserId == id);
-                var q = entity.Requests.Where(x => x.Id == id);
-                foreach (var request in q)
+                var requests = entity.Requests.Where(x => x.Id == u.UserId).ToList();
+                var shortLists = entity.ShortLists.Where(x => x.UserId == u.UserId).ToList();
+                foreach (var request in requests)
                 {
                     entity.Requests.Remove(request);
+                }
+                foreach (var shortlist in shortLists)
+                {
+                    entity.ShortLists.Remove(shortlist);
                 }
                 entity.UserProfiles.Remove(u);
                 entity.SaveChanges();

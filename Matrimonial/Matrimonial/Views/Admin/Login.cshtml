@@ -19,7 +19,7 @@
                     <h3 class="panel-title">Please Sign In</h3>
                 </div>
                 <div class="panel-body">
-                    @using (Html.BeginForm("LoginAdmin", "Admin"))
+                    @using (Html.BeginForm("Login", "Admin", FormMethod.Post))
                     {
                         <fieldset>
                             <div class="form-group input-group">
